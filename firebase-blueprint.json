@@ -1,0 +1,66 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Student user account and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "preferredTone": { "type": "string", "enum": ["concise", "formal", "engaging", "balanced"] }
+      },
+      "required": ["uid", "email"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "A saved study conversation session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "tone": { "type": "string", "enum": ["concise", "formal", "engaging", "balanced"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "preview": { "type": "string" },
+        "messageCount": { "type": "number" }
+      },
+      "required": ["id", "userId", "title", "createdAt", "updatedAt"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "An individual message within a study session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "sessionId": { "type": "string" },
+        "userId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "assistant"] },
+        "content": { "type": "string" },
+        "mode": { "type": "string" },
+        "tone": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "image": { "type": "string" },
+        "questionRefId": { "type": "string" }
+      },
+      "required": ["id", "sessionId", "userId", "role", "content", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document storing student settings"
+    },
+    "/users/{userId}/sessions/{sessionId}": {
+      "schema": "ChatSession",
+      "description": "Collection of chat sessions belonging to a student"
+    },
+    "/users/{userId}/sessions/{sessionId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Ordered messages for a specific session"
+    }
+  }
+}

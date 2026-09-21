@@ -1,0 +1,6 @@
+{
+  "name": "StudyAI",
+  "description": "An AI study assistant with step-by-step teaching, quick solutions, and worksheet image comprehension.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
